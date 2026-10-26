@@ -1,0 +1,28 @@
+name = "pdf-insight-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+workers_dev = true
+preview_urls = false
+
+[vars]
+# Exact origins (scheme + host, no path) allowed to call the API.
+ALLOWED_ORIGINS = "https://vexor1337.github.io"
+# Tried in order: the free tier regularly answers 503 "high demand" for a single model.
+# gemini-3.6-flash is left out on purpose — under load it returned 503 only after 6-16 s.
+GEMINI_MODELS = "gemini-3.8-flash,gemini-3.5-flash-lite,gemini-3.1-flash-lite"
+GEMINI_OCR_MODELS = "gemini-3.5-flash-lite,gemini-3.1-flash-lite,gemini-3.8-flash"
+
+# Per-IP limit. Secrets (GEMINI_API_KEY) are set with `wrangler secret put`, never here.
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }
+
+# Caps total AI usage regardless of client IP, protecting the free-tier daily quota.
+[[ratelimits]]
+name = "GLOBAL_RATE_LIMITER"
+namespace_id = "1002"
+simple = { limit = 30, period = 60 }
+
+[observability]
+enabled = false

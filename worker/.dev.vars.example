@@ -1,0 +1,3 @@
+# Skopiuj do worker/.dev.vars (plik jest ignorowany przez Git) i uzupełnij lokalnie.
+GEMINI_API_KEY=
+ALLOWED_ORIGINS=http://localhost:5173,http://localhost:4173
