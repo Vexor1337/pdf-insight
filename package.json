@@ -1,0 +1,61 @@
+{
+  "name": "pdf-insight",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Analiza plików PDF: podsumowanie i dane strukturalne JSON z pomocą AI.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "predev": "node scripts/copy-pdfjs-assets.mjs",
+    "dev": "vite",
+    "dev:worker": "wrangler dev --config worker/wrangler.toml",
+    "prebuild": "node scripts/copy-pdfjs-assets.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --max-warnings 0",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc -b --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:e2e": "playwright test --grep-invert @live",
+    "test:live": "playwright test --grep @live",
+    "fixtures": "node tests/fixtures/generate.ts",
+    "check": "npm run lint && npm run typecheck && npm run test",
+    "deploy:worker": "wrangler deploy --config worker/wrangler.toml"
+  },
+  "dependencies": {
+    "pdfjs-dist": "6.4.299",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@cloudflare/workers-types": "5.20261026.1",
+    "@eslint/js": "9.39.5",
+    "@playwright/test": "1.64.1",
+    "@types/node": "26.6.5",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "eslint": "9.39.5",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-react-hooks": "7.1.1",
+    "globals": "17.13.0",
+    "pdf-lib": "1.17.1",
+    "prettier": "3.9.10",
+    "typescript": "6.0.3",
+    "typescript-eslint": "8.72.1",
+    "vite": "8.3.5",
+    "vitest": "5.0.5",
+    "wrangler": "4.153.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261023.1": true
+  }
+}
